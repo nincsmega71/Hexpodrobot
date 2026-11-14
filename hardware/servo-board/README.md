@@ -12,7 +12,7 @@ A hálózatok címkékkel kapcsolódnak: az azonos nevű címkék össze vannak 
 | Jel | Alkatrész | Tok | Megjegyzés |
 |---|---|---|---|
 | U1 | CH32V003F4U6 | QFN-20 3 × 3 mm, 0,4 mm | EP (21) = VSS |
-| U2 | DRV8876PWP | HTSSOP-16 + hűtőpad (17) | PMODE = GND (PH/EN), IMODE = GND |
+| U2 | DRV8876RGT | VQFN-16 3 × 3 mm, 0,5 mm + hűtőpad (17) | PMODE = GND (PH/EN), IMODE = GND |
 | U3 | HT7533-1 | SOT-89 (1 GND, 2 VIN, 3 VOUT) | Vin max. 30 V, 100 mA |
 
 ## CH32V003F4U6 lábkiosztás (QFN-20)
@@ -75,8 +75,30 @@ A lábkiosztás a CH32V003F4U6 QFN-20 kiosztási ábrájával egyeztetve (2026-1
 
 ## A NYÁK-tervhez
 
-- A footprintek a KiCad alapkönyvtár neveire hivatkoznak. A DRV8876 HTSSOP-16 hűtőpadjának méretét (`Package_SO:HTSSOP-16-1EP_...`) a TI PWP rajzával egyeztetni kell, ha a KiCad-verziódban más a név, a footprint-hozzárendelésnél cseréld.
+- A footprintek a KiCad alapkönyvtár neveire hivatkoznak. A DRV8876RGT-hez `Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.68x1.68mm` van megadva; a hűtőpad méretét a TI RGT tokrajzával egyeztetni kell, és ha a KiCad-verziódban más a név, a footprint-hozzárendelésnél cseréld.
+
+## DRV8876RGT lábkiosztás (VQFN-16)
+
+| Láb | Név | Hálózat |
+|---|---|---|
+| 1 | nSLEEP | nSLEEP |
+| 2 | nFAULT | nFAULT |
+| 3 | VREF | VREF |
+| 4 | IPROPI | IPROPI |
+| 5 | IMODE | GND |
+| 6 | OUT1 | MOT_A |
+| 7 | PGND | GND |
+| 8 | OUT2 | MOT_B |
+| 9 | VM | VBAT |
+| 10 | VCP | VCP |
+| 11 | CPH | CPH |
+| 12 | CPL | CPL |
+| 13 | GND | GND |
+| 14 | PMODE | GND |
+| 15 | EN/IN1 | PWM_EN |
+| 16 | PH/IN2 | PH_DIR |
+| 17 | hűtőpad | GND |
 - A motoráram hurka (C1 → VM → OUT1/OUT2 → motor → PGND) legyen rövid és széles, ne fusson az ADC-jelek (PA1, PA2, PC4) alatt.
-- U2 hűtőpadja (17) legalább 4–6 viával kapcsolódjon az alsó GND-plánhoz.
+- U2 hűtőpadja (17) legalább 4–5 viával (0,3 mm) kapcsolódjon az alsó GND-plánhoz.
 - C4 és C5 az U1 VDD lába mellé, C6 és C7 közvetlenül a DRV8876 lábaihoz.
 - Méretcél: kb. 18 × 30 mm, kétoldalas, hogy a DS3218 és az MG996R házába is beférjen.

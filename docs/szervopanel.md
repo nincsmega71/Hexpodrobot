@@ -1,6 +1,6 @@
 # Szervópanel
 
-A gyári szervóelektronika helyére kerülő panel: **CH32V003F4U6** (QFN-20, 3 × 3 mm), **DRV8876** H-híd beépített árammérő kimenettel és egy 3,3 V-os LDO. Tervezett méret kb. 18 × 30 mm, kétoldalas, a DS3218 és az MG996R házába is befér. A motor, a hajtómű és a potméter marad.
+A gyári szervóelektronika helyére kerülő panel: **CH32V003F4U6** (QFN-20, 3 × 3 mm), **DRV8876RGT** (VQFN-16) H-híd beépített árammérő kimenettel és egy 3,3 V-os LDO. Tervezett méret kb. 18 × 30 mm, kétoldalas, a DS3218 és az MG996R házába is befér. A motor, a hajtómű és a potméter marad.
 
 ![Szervópanel blokkvázlata](img/szervopanel-blokk.svg)
 
@@ -9,7 +9,7 @@ A gyári szervóelektronika helyére kerülő panel: **CH32V003F4U6** (QFN-20, 3
 | Pozíció | Alkatrész | Feladat |
 |---|---|---|
 | U1 | CH32V003F4U6 (QFN-20) | 48 MHz RISC-V, 16 KB flash, 2 KB RAM, 10 bites ADC |
-| U2 | DRV8876 (HTSSOP-16) | H-híd, 4,5–37 V, 3,5 A csúcs, IPROPI áramtükör-kimenet |
+| U2 | DRV8876RGT (VQFN-16, 3 × 3 mm) | H-híd, 4,5–37 V, 3,5 A csúcs, IPROPI áramtükör-kimenet |
 | U3 | HT7533-1 (SOT-89: 1 GND, 2 VIN, 3 VOUT) | Logikai táp a 2S akkuról, Vin max. 30 V, 100 mA |
 | C1 | 100 µF / 16 V polimer vagy elektrolit | Motortáp puffer a VM lábnál |
 | C2, C3 | 100 nF + 10 µF kerámia | VM és 3,3 V szűrés |

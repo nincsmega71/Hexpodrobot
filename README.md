@@ -48,6 +48,6 @@ Hatlábú, gömbbé összecsukható robot (Kåre Halvorsen MorpHex robotja alapj
 
 ## Ellenőrizendő élesztés előtt
 
-- A DRV8876 HTSSOP-16 footprint hűtőpad-méretét a TI PWP rajzával egyeztetni.
+- A DRV8876RGT VQFN-16 footprint hűtőpad-méretét a TI RGT tokrajzával egyeztetni.
 - A beállítások flash-címe (`SETTINGS_FLASH_ADDR`) és a CH32V003 törlési egysége.
 - Az ESP32-S3 RTS-polaritása RS485 módban (74LVC1G126 vagy 74LVC1G125).
