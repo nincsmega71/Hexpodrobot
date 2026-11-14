@@ -19,17 +19,17 @@
 #define MODEL_NUMBER        MODEL_DS3218   /* platformio.ini-ben felülírható */
 #endif
 
-/* ---- Lábkiosztás (portnevek; a QFN-20 fizikai lábszámait az adatlapból) -- */
-/* PD5  USART1_TX  half-duplex busz                                          */
-/* PC3  TIM1_CH3   PWM -> DRV8876 EN                                         */
-/* PC2  GPIO       -> DRV8876 PH (irány)                                     */
-/* PC0  GPIO       -> DRV8876 nSLEEP                                         */
-/* PC1  GPIO in    <- DRV8876 nFAULT (belső felhúzó)                         */
-/* PC5  GPIO       -> állapot-LED                                            */
-/* PA2  ADC CH0    <- potméter csúszka                                       */
-/* PA1  ADC CH1    <- DRV8876 IPROPI                                         */
-/* PC4  ADC CH2    <- akkufeszültség-osztó (100k / 33k)                      */
-/* PD2  ADC CH3    <- NTC (10k NTC GND felé, 10k felhúzó 3,3 V-ra), opció    */
+/* ---- Lábkiosztás (port, QFN-20 lábszám) – hardware/servo-board ----------- */
+/* PD5  (19) USART1_TX  half-duplex busz                                          */
+/* PC3  (10) TIM1_CH3   PWM -> DRV8876 EN                                         */
+/* PC2  (9)  GPIO -> DRV8876 PH (irány)                                     */
+/* PC0  (7)  GPIO -> DRV8876 nSLEEP                                         */
+/* PC1  (8)  GPIO in    <- DRV8876 nFAULT (belső felhúzó)                         */
+/* PC5  (12) GPIO -> állapot-LED                                            */
+/* PA2  (3)  ADC CH0    <- potméter csúszka                                       */
+/* PA1  (2)  ADC CH1    <- DRV8876 IPROPI                                         */
+/* PC4  (11) ADC CH2    <- akkufeszültség-osztó (100k / 33k)                      */
+/* PD2  (16) ADC CH3    <- NTC (10k NTC GND felé, 10k felhúzó 3,3 V-ra), opció    */
 
 /* ---- PWM ---------------------------------------------------------------- */
 #define PWM_FREQ_HZ         20000
@@ -45,8 +45,7 @@
 #define VREF_MV             3300
 
 /* IPROPI: I_mA = U_mV * 1000 / IPROPI_MV_PER_A
- * DRV8876 A_IPROPI ~1000 uA/A, R_IPROPI = 1 kOhm -> ~1000 mV/A
- * ELLENŐRIZNI a DRV8876 adatlapjában (A_IPROPI típusérték). */
+ * DRV8876 A_IPROPI = 1000 uA/A (TI adatlap, típusérték), R_IPROPI = 1 kOhm -> 1000 mV/A */
 #define IPROPI_MV_PER_A     1000
 
 /* Akkufeszültség-osztó: Vbat = Vadc * (R1 + R2) / R2 */

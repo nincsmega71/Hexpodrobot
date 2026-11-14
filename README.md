@@ -22,7 +22,7 @@ Hatlábú, gömbbé összecsukható robot (Kåre Halvorsen MorpHex robotja alapj
 | [docs/mechanika.md](docs/mechanika.md) | Szervóválasztás, lábméretek, gömb, héjnyitó mechanizmus |
 | [firmware/servo](firmware/servo) | CH32V003F4U6 firmware (VS Code + PlatformIO) |
 | [firmware/master/HexMaster](firmware/master/HexMaster) | ESP32-S3 program (Arduino IDE): busz-teszt, beállítás, lábkinematika |
-| hardware/servo-board | KiCad-terv (még nincs elkészítve) |
+| [hardware/servo-board](hardware/servo-board) | KiCad kapcsolási rajz, PDF, saját szimbólumok |
 | mechanics | SolidWorks-alkatrészek (még nincsenek elkészítve) |
 
 ## Állapot
@@ -32,7 +32,8 @@ Hatlábú, gömbbé összecsukható robot (Kåre Halvorsen MorpHex robotja alapj
 | Koncepció, protokoll, panelterv | kész (dokumentáció) |
 | Szervó firmware | első verzió, lefordul (7,8 KB flash, 0,9 KB RAM), hardveren még nem tesztelt |
 | Mester program | első verzió, hardveren még nem tesztelt |
-| KiCad panelterv | következő lépés |
+| KiCad kapcsolási rajz | kész, netlista ellenőrizve ([hardware/servo-board](hardware/servo-board)) |
+| KiCad NYÁK | következő lépés |
 | Mechanika (SolidWorks) | következő lépés |
 
 ## Első lépések
@@ -47,8 +48,7 @@ Hatlábú, gömbbé összecsukható robot (Kåre Halvorsen MorpHex robotja alapj
 
 ## Ellenőrizendő élesztés előtt
 
-- A CH32V003F4U6 (QFN-20) fizikai lábszámai az adatlapból. A firmware és a dokumentáció portnevekkel (PD5, PC3 stb.) dolgozik.
-- A HT7533 (vagy a választott LDO) legnagyobb bemeneti feszültsége ≥ 8,4 V legyen.
-- A DRV8876 IPROPI-erősítése (`IPROPI_MV_PER_A`, `firmware/servo/src/config.h`).
+- A CH32V003F4U6 QFN-20 lábkiosztását a WCH adatlap ábrájával még egyszer összenézni (a kapcsolási rajz több forrásból egyeztetett kiosztással készült).
+- A DRV8876 HTSSOP-16 footprint hűtőpad-méretét a TI PWP rajzával egyeztetni.
 - A beállítások flash-címe (`SETTINGS_FLASH_ADDR`) és a CH32V003 törlési egysége.
 - Az ESP32-S3 RTS-polaritása RS485 módban (74LVC1G126 vagy 74LVC1G125).
