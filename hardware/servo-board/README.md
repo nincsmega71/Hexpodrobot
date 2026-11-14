@@ -41,7 +41,7 @@ A hálózatok címkékkel kapcsolódnak: az azonos nevű címkék össze vannak 
 | 20 | PD6 | – | nem bekötött |
 | 21 | EP | | GND |
 
-Forrás: a TSSOP-20 lábkiosztás 3-mal eltolva, több független adatlap-kivonat alapján egyeztetve. NYÁK-tervezés előtt a WCH adatlap QFN-20 ábrájával még egyszer érdemes összenézni.
+A lábkiosztás a CH32V003F4U6 QFN-20 kiosztási ábrájával egyeztetve (2026-11-14): minden láb egyezik.
 
 ## Alkatrészlista
 

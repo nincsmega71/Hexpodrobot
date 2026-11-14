@@ -48,7 +48,6 @@ Hatlábú, gömbbé összecsukható robot (Kåre Halvorsen MorpHex robotja alapj
 
 ## Ellenőrizendő élesztés előtt
 
-- A CH32V003F4U6 QFN-20 lábkiosztását a WCH adatlap ábrájával még egyszer összenézni (a kapcsolási rajz több forrásból egyeztetett kiosztással készült).
 - A DRV8876 HTSSOP-16 footprint hűtőpad-méretét a TI PWP rajzával egyeztetni.
 - A beállítások flash-címe (`SETTINGS_FLASH_ADDR`) és a CH32V003 törlési egysége.
 - Az ESP32-S3 RTS-polaritása RS485 módban (74LVC1G126 vagy 74LVC1G125).
