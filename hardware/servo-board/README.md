@@ -75,7 +75,7 @@ A lábkiosztás a CH32V003F4U6 QFN-20 kiosztási ábrájával egyeztetve (2026-1
 
 ## A NYÁK-tervhez
 
-- A footprintek a KiCad alapkönyvtár neveire hivatkoznak. A DRV8876RGT-hez `Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.68x1.68mm` van megadva; a hűtőpad méretét a TI RGT tokrajzával egyeztetni kell, és ha a KiCad-verziódban más a név, a footprint-hozzárendelésnél cseréld.
+- A footprintek a KiCad alapkönyvtár neveire hivatkoznak. A DRV8876RGT-hez `Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.68x1.68mm` van megadva. Ez egyezik a TI RGT0016C tokrajzával (hűtőpad 1,68 ± 0,07 mm négyzet, 0,5 mm osztás, lábpadok 0,6 × 0,24 mm, külső méret 2,8 mm).
 
 ## DRV8876RGT lábkiosztás (VQFN-16)
 
@@ -99,6 +99,6 @@ A lábkiosztás a CH32V003F4U6 QFN-20 kiosztási ábrájával egyeztetve (2026-1
 | 16 | PH/IN2 | PH_DIR |
 | 17 | hűtőpad | GND |
 - A motoráram hurka (C1 → VM → OUT1/OUT2 → motor → PGND) legyen rövid és széles, ne fusson az ADC-jelek (PA1, PA2, PC4) alatt.
-- U2 hűtőpadja (17) legalább 4–5 viával (0,3 mm) kapcsolódjon az alsó GND-plánhoz.
+- U2 hűtőpadja (17): a TI ajánlása szerint 4 db Ø0,2 mm-es via ±0,58 mm-re a középponttól (+ opcionálisan egy középen), az alsó GND-plánhoz. A pad alatti viák legyenek tömítettek vagy lefedettek (plugged/tented), különben a forraszpaszta lefolyik. Stencil a hűtőpadra: 1,55 mm négyzet (85%), 0,125 mm vastag stencillel.
 - C4 és C5 az U1 VDD lába mellé, C6 és C7 közvetlenül a DRV8876 lábaihoz.
 - Méretcél: kb. 18 × 30 mm, kétoldalas, hogy a DS3218 és az MG996R házába is beférjen.
