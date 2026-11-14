@@ -1,0 +1,155 @@
+' =====================================================================
+' Hexpodrobot - hejszelet (1/12 gomb)
+' SolidWorks makro (.swb). Futtatas: Eszkozok > Makro > Futtatas,
+' fajltipus: SW Basic makrok (*.swb). Ures dokumentum nelkul is fut,
+' maga nyit uj alkatreszt az alapertelmezett sablonnal.
+' Mertekegyseg a kodban: mm es fok (a makro valtja at).
+' =====================================================================
+
+' ---- kozos segedfuggvenyek -------------------------------------------
+Dim swApp As Object
+Dim Part As Object
+Dim SkM As Object
+Dim FeM As Object
+Dim ok As Boolean
+
+Function MM(ByVal v As Double) As Double
+    MM = v / 1000#
+End Function
+
+Function DEG(ByVal v As Double) As Double
+    DEG = v * 3.14159265358979 / 180#
+End Function
+
+' Uj alkatresz az alapertelmezett sablonnal
+Function NewPart() As Boolean
+    Dim tpl As String
+    Set swApp = Application.SldWorks
+    tpl = swApp.GetUserPreferenceStringValue(8)   ' swDefaultTemplatePart
+    Set Part = swApp.NewDocument(tpl, 0, 0, 0)
+    If Part Is Nothing Then
+        MsgBox "Nem sikerult uj alkatreszt nyitni. Allitsd be az alapertelmezett alkatresz-sablont (Beallitasok > Alapertelmezett sablonok)."
+        NewPart = False
+        Exit Function
+    End If
+    Set SkM = Part.SketchManager
+    Set FeM = Part.FeatureManager
+    NewPart = True
+End Function
+
+' Az n-edik alap sik (1 = elolnezet / Front, 2 = felulnezet / Top, 3 = jobb / Right),
+' nyelvtol fuggetlenul, a fa sorrendje alapjan
+Function GetPlane(ByVal idx As Integer) As Object
+    Dim f As Object
+    Dim n As Integer
+    n = 0
+    Set f = Part.FirstFeature
+    Do While Not f Is Nothing
+        If f.GetTypeName2 = "RefPlane" Then
+            n = n + 1
+            If n = idx Then
+                Set GetPlane = f
+                Exit Function
+            End If
+        End If
+        Set f = f.GetNextFeature
+    Loop
+End Function
+
+' Uj vazlat az elolnezeti (Front) sikon: vazlat X = modell X, vazlat Y = modell Y
+Sub StartSketch()
+    Part.ClearSelection2 True
+    ok = GetPlane(1).Select2(False, 0)
+    SkM.InsertSketch True
+    SkM.AddToDB = True
+End Sub
+
+' Vazlat lezarasa es kijelolese a kovetkezo jellemzohoz
+Sub EndSketch()
+    SkM.AddToDB = False
+    SkM.InsertSketch True
+    Part.ClearSelection2 True
+    ok = Part.FeatureByPositionReverse(0).Select2(False, 0)
+End Sub
+
+' Kihuzas szimmetrikusan a vazlatsikra (osszvastagsag mm-ben)
+Sub ExtrudeMid(ByVal totalMM As Double)
+    Dim f As Object
+    Set f = FeM.FeatureExtrusion2(True, False, False, 6, 0, MM(totalMM), 0, False, False, False, False, 0, 0, False, False, False, False, True, True, True, 0, 0, False)
+    If f Is Nothing Then MsgBox "Kihuzas sikertelen"
+End Sub
+
+' Kivagas szimmetrikusan, eleg melyen ahhoz, hogy atvagjon
+Sub CutMid(ByVal totalMM As Double)
+    Dim f As Object
+    Set f = FeM.FeatureCut4(True, False, False, 6, 0, MM(totalMM), 0, False, False, False, False, 0, 0, False, False, False, False, False, True, True, True, True, False, 0, 0, False, False)
+    If f Is Nothing Then MsgBox "Kivagas sikertelen"
+End Sub
+
+' Forgatas a vazlat kozepvonala korul
+Sub Revolve(ByVal angleDeg As Double)
+    Dim f As Object
+    Set f = FeM.FeatureRevolve2(True, True, False, False, False, False, 0, 0, DEG(angleDeg), 0, False, False, 0, 0, 0, 0, 0, True, True, True)
+    If f Is Nothing Then MsgBox "Forgatas sikertelen"
+End Sub
+
+Sub L(ByVal x1 As Double, ByVal y1 As Double, ByVal x2 As Double, ByVal y2 As Double)
+    SkM.CreateLine MM(x1), MM(y1), 0, MM(x2), MM(y2), 0
+End Sub
+
+Sub CL(ByVal x1 As Double, ByVal y1 As Double, ByVal x2 As Double, ByVal y2 As Double)
+    SkM.CreateCenterLine MM(x1), MM(y1), 0, MM(x2), MM(y2), 0
+End Sub
+
+' Iv kozepponttal, kezdo- es vegponttal; dirCCW = 1: ora jarasaval ellentetes, -1: megegyezo
+Sub A(ByVal xc As Double, ByVal yc As Double, ByVal x1 As Double, ByVal y1 As Double, ByVal x2 As Double, ByVal y2 As Double, ByVal dirCCW As Integer)
+    SkM.CreateArc MM(xc), MM(yc), 0, MM(x1), MM(y1), 0, MM(x2), MM(y2), 0, dirCCW
+End Sub
+
+Sub Circ(ByVal xc As Double, ByVal yc As Double, ByVal d As Double)
+    SkM.CreateCircleByRadius MM(xc), MM(yc), 0, MM(d / 2#)
+End Sub
+
+Sub Rect(ByVal x1 As Double, ByVal y1 As Double, ByVal x2 As Double, ByVal y2 As Double)
+    SkM.CreateCornerRectangle MM(x1), MM(y1), 0, MM(x2), MM(y2), 0
+End Sub
+
+' Hosszlyuk (ket felkor + ket egyenes) ket kozeppont kozott, vizszintesen
+Sub SlotH(ByVal x1 As Double, ByVal x2 As Double, ByVal y As Double, ByVal w As Double)
+    Dim r As Double
+    r = w / 2#
+    L x1, y + r, x2, y + r
+    L x1, y - r, x2, y - r
+    A x2, y, x2, y - r, x2, y + r, 1
+    A x1, y, x1, y + r, x1, y - r, 1
+End Sub
+
+Sub Finish(ByVal nameHint As String)
+    Part.ClearSelection2 True
+    Part.ViewZoomtofit2
+    Part.ShowNamedView2 "*Isometric", 7
+    Part.ViewZoomtofit2
+    MsgBox "Kesz: " & nameHint & vbCrLf & "Mentsd el .sldprt-kent (Fajl > Mentes)."
+End Sub
+
+' ---- parameterek -------------------------------------------------------
+Const R_KULSO As Double = 160     ' gomb kulso sugara, mm (O 32 cm)
+Const VASTAG As Double = 2.5      ' falvastagsag, mm
+Const SZOG As Double = 60         ' szelet szelessege, fok (6 szelet = 360)
+
+Sub main()
+    If Not NewPart() Then Exit Sub
+    Dim ri As Double
+    ri = R_KULSO - VASTAG
+    ' Profil az elolnezeti sikon: negyedgyuru az egyenlitotol a polusig,
+    ' a fuggoleges kozepvonal (Y tengely) korul forgatva adja a gombcikket.
+    StartSketch
+    CL 0, 0, 0, R_KULSO + 20
+    A 0, 0, R_KULSO, 0, 0, R_KULSO, 1
+    L 0, R_KULSO, 0, ri
+    A 0, 0, 0, ri, ri, 0, -1
+    L ri, 0, R_KULSO, 0
+    EndSketch
+    Revolve SZOG
+    Finish "Hejszelet R" & R_KULSO & " mm, " & SZOG & " fok"
+End Sub

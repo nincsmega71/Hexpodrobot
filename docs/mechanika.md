@@ -67,7 +67,8 @@ Ha a combszervót 90°-kal elforgatva, a 20 mm-es oldalával kifelé építed be
 
 ## Következő lépések
 
+- [x] SolidWorks-makrók: héjszelet, szervó burkolótest, lábszakasz-lemez, héjnyitó konzol ([mechanics](../mechanics))
 - [ ] SolidWorks: szervótartó konzol (DS3218/MG996R közös)
-- [ ] SolidWorks: héjszelet (1/12 gömb) és a két tartókonzol
-- [ ] SolidWorks: héjnyitó konzol a két horonnyal, Motion-szimuláció
+- [ ] SolidWorks: a héjszelet két tartókonzolja (lábszár, nyitószervó)
+- [ ] SolidWorks: héjnyitás összeállítása és Motion-szimulációja
 - [ ] Központi mag: 6 csípőszervó hatszögben, akku, elektronika

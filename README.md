@@ -23,7 +23,7 @@ Hatlábú, gömbbé összecsukható robot (Kåre Halvorsen MorpHex robotja alapj
 | [firmware/servo](firmware/servo) | CH32V003F4U6 firmware (VS Code + PlatformIO) |
 | [firmware/master/HexMaster](firmware/master/HexMaster) | ESP32-S3 program (Arduino IDE): busz-teszt, beállítás, lábkinematika |
 | [hardware/servo-board](hardware/servo-board) | KiCad kapcsolási rajz, PDF, saját szimbólumok |
-| mechanics | SolidWorks-alkatrészek (még nincsenek elkészítve) |
+| [mechanics](mechanics) | SolidWorks-makrók (.swb): héjszelet, szervótest, lábszakasz, héjnyitó konzol |
 
 ## Állapot
 
@@ -34,7 +34,7 @@ Hatlábú, gömbbé összecsukható robot (Kåre Halvorsen MorpHex robotja alapj
 | Mester program | első verzió, hardveren még nem tesztelt |
 | KiCad kapcsolási rajz | kész, netlista ellenőrizve ([hardware/servo-board](hardware/servo-board)) |
 | KiCad NYÁK | következő lépés |
-| Mechanika (SolidWorks) | következő lépés |
+| Mechanika (SolidWorks) | első makrók kész, SolidWorksben még nem futtatva |
 
 ## Első lépések
 
